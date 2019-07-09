@@ -1,0 +1,23 @@
+{
+  "name": "node_js_proj",
+  "version": "1.0.0",
+  "description": "First Attempt at learning and utilizing Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarterT14/Node_JS_Proj.git"
+  },
+  "author": "Carter Thornton <carterthornton14@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CarterT14/Node_JS_Proj/issues"
+  },
+  "homepage": "https://github.com/CarterT14/Node_JS_Proj#readme",
+  "dependencies": {
+    "mongoose": "^5.6.4",
+    "underscore": "^1.9.1"
+  }
+}
