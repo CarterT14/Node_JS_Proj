@@ -1,0 +1,15 @@
+{
+  "name": "node_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Carter Thornton <carterthornton14@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "carter3545": "^1.0.0"
+  }
+}

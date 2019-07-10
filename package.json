@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/CarterT14/Node_JS_Proj#readme",
   "dependencies": {
+    "carter3545": "^1.0.0",
     "mongoose": "^5.6.4",
     "underscore": "^1.9.1"
   },
