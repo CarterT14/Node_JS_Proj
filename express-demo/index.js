@@ -19,10 +19,10 @@ app.get('/api/courses', (req,res) => {
     res.send(courses);
 });
 
+//app.post creates new course
 app.post('/api/courses', (req,res) => {
     
     const { error } = validateCourse(req.body); //object destructuring equivalent to result.error
-
     if(error){
         res.status(400).send(error.details[0].message);
         return;
@@ -36,21 +36,19 @@ app.post('/api/courses', (req,res) => {
     res.send(course);
 });
 
-
+//app.put for updating resources 
 app.put('/api/courses/:id', (req,res) => {
 
 
     //look up the course
     //if not existing, return 404
-    const lookup = course.find (c => c.id === parseInt(req.params.id));
+    const course = courses.find (c => c.id === parseInt(req.params.id));
     if(!course) res.status(404).send('The course with the given ID is not found');
     
 
     //validate 
     //if valid, return 400 -bad request
-    
     const { error } = validateCourse(req.body); //object destructuring equivalent to result.error
-
     if(error){
         res.status(400).send(error.details[0].message);
         return;
@@ -63,11 +61,13 @@ app.put('/api/courses/:id', (req,res) => {
 
 });
 
+//validation logic
 function validateCourse(course){
     const schema = {
         name: Joi.string().min(3).required()
     };
     
+
      return Joi.validate(course, schema);
 
 }
