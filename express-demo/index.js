@@ -23,11 +23,8 @@ app.get('/api/courses', (req,res) => {
 app.post('/api/courses', (req,res) => {
     
     const { error } = validateCourse(req.body); //object destructuring equivalent to result.error
-    if(error){
-        res.status(400).send(error.details[0].message);
-        return;
-    }
-
+    if(error)return res.status(400).send(error.details[0].message);
+   
     const course = {
         id: courses.length + 1, 
         name: req.body.name 
@@ -43,16 +40,14 @@ app.put('/api/courses/:id', (req,res) => {
     //look up the course
     //if not existing, return 404
     const course = courses.find (c => c.id === parseInt(req.params.id));
-    if(!course) res.status(404).send('The course with the given ID is not found');
-    
+    if(!course)  return res.status(404).send('The course with the given ID is not found');
+        
+   
 
     //validate 
     //if valid, return 400 -bad request
     const { error } = validateCourse(req.body); //object destructuring equivalent to result.error
-    if(error){
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if(error) return res.status(400).send(error.details[0].message);
 
     //update course
     //return the updated course 
@@ -72,13 +67,23 @@ function validateCourse(course){
 
 }
 
+app.delete('/api/courses/:id', (req, res) => {
+    //look up the course
+    //Not existing, return 404
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if(!course)  return res.status(404).send('The course with the given ID is not found');
 
+    //delete
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
 
-
+    //return the same course
+    res.send(course);
+});
 
 app.get('/api/courses/:id' , (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id)); 
-    if (!course) res.status(404).send('The couse with the given ID is not found.');
+    if (!course) return res.status(404).send('The couse with the given ID is not found.');
     res.send(course);
 });
 
