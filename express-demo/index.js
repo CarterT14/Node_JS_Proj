@@ -11,10 +11,11 @@ const courses = [
 
 ];
 
+/*
 app.get('/', (req, res) => {
     res.send('Hello World!!!');
 });
-
+*/
 app.get('/api/courses', (req,res) => {
     res.send(courses);
 });
@@ -61,10 +62,7 @@ function validateCourse(course){
     const schema = {
         name: Joi.string().min(3).required()
     };
-    
-
-     return Joi.validate(course, schema);
-
+   return Joi.validate(course, schema);
 }
 
 app.delete('/api/courses/:id', (req, res) => {
@@ -83,7 +81,7 @@ app.delete('/api/courses/:id', (req, res) => {
 
 app.get('/api/courses/:id' , (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id)); 
-    if (!course) return res.status(404).send('The couse with the given ID is not found.');
+    if (!course) return res.status(404).send('The course with the given ID is not found.');
     res.send(course);
 });
 
