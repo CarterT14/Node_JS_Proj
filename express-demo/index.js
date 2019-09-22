@@ -1,10 +1,12 @@
+const helmet = require('helmet');
+const morgan = require('morgan');
 const Joi = require('joi');
 const logger = require('./logger'); // './' means current folder
 const authenticate = require('./authenticate'); // in current folder
 const express = require('express'); 
 const app = express();
-const helmet = require('helmet');
-const morgan = require('morgan');
+
+ 
 app.use(express.json()); //adding and using middleware
 // json is a middle ware and parses the body of the request 
 //req prossessing pipeline... request -> middleware -> middleware -> ... -> response
@@ -12,7 +14,13 @@ app.use(express.json()); //adding and using middleware
 app.use(express.urlencoded({extended: true}));  // key=value&key=value and parses like req.body  extended: true means we can pass arrays using url encoded formats
 app.use(express.static('public')); //css images and other static assets inside the public forlder
 app.use(helmet());
-app.use(morgan('tiny'));
+
+if (app.get('env') === 'development'){
+    app.use(morgan('tiny')); // if we are in a developmental environment, we will enable the http logging from morgan
+    //console.log(`app: ${app.get('env')}`);
+    console.log('Morgan enabled');
+}
+
 app.use(logger);
 app.use(authenticate);
 
