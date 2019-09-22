@@ -1,20 +1,23 @@
 const Joi = require('joi');
 const logger = require('./logger'); // './' means current folder
-const express = require('express');
+const authenticate = require('./authenticate'); // in current folder
+const express = require('express'); 
 const app = express();
 
 app.use(express.json()); //adding and using middleware
+// json is a middle ware and parses the body of the request 
+//req prossessing pipeline... request -> middleware -> middleware -> ... -> response
+// req -> json() -> route() -> ... -> res
 
-    //req prossessing pipeline... request -> middleware -> middleware -> ... -> response 
-    // req -> json() -> route() -> ... -> res
+app.use(express.urlencoded({extended: true}));  // key=value&key=value and parses like req.body  extended: true means we can pass arrays using url encoded formats
 
+app.use(express.static('public')); //css images and other static assets inside the public forlder
 
 app.use(logger);
 
-app.use(function(req, res, next){
-    console.log('Authenticating...');
-    next(); //need this to pass control onto the next middleware chain, otherwise its left hanging.
-});
+//below is the custom middleware function
+app.use(authenticate);
+
 const courses = [
     { id: 1, name: 'course1'},
     { id: 2, name: 'course2'},
