@@ -3,19 +3,17 @@ const logger = require('./logger'); // './' means current folder
 const authenticate = require('./authenticate'); // in current folder
 const express = require('express'); 
 const app = express();
-
+const helmet = require('helmet');
+const morgan = require('morgan');
 app.use(express.json()); //adding and using middleware
 // json is a middle ware and parses the body of the request 
 //req prossessing pipeline... request -> middleware -> middleware -> ... -> response
 // req -> json() -> route() -> ... -> res
-
 app.use(express.urlencoded({extended: true}));  // key=value&key=value and parses like req.body  extended: true means we can pass arrays using url encoded formats
-
 app.use(express.static('public')); //css images and other static assets inside the public forlder
-
+app.use(helmet());
+app.use(morgan('tiny'));
 app.use(logger);
-
-//below is the custom middleware function
 app.use(authenticate);
 
 const courses = [
