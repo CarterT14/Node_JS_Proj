@@ -1,3 +1,5 @@
+const debug = require('debug')('app:startup');
+const config = require('config');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const Joi = require('joi');
@@ -15,16 +17,22 @@ app.use(express.urlencoded({extended: true}));  // key=value&key=value and parse
 app.use(express.static('public')); //css images and other static assets inside the public forlder
 app.use(helmet());
 
+//Confiuration
+console.log('Application Name: ' + config.get('name'));
+console.log('Mail Server: ' + config.get('mail.host'));
+console.log('Mail Password: ' + config.get('mail.password'));      
+
 if (app.get('env') === 'development'){
     app.use(morgan('tiny')); // if we are in a developmental environment, we will enable the http logging from morgan
-    //console.log(`app: ${app.get('env')}`);
-    console.log('Morgan enabled');
+    debug('Morgan enabled...');
 }
+
+
 
 app.use(logger);
 app.use(authenticate);
 
-const courses = [
+const courses = [ 
     { id: 1, name: 'course1'},
     { id: 2, name: 'course2'},
     { id: 3, name: 'course3'}
