@@ -18,7 +18,7 @@
   "homepage": "https://github.com/CarterT14/Node_JS_Proj#readme",
   "dependencies": {
     "mongoose": "^5.6.4",
-    "underscore": "^1.4.0"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {},
   "keywords": []
